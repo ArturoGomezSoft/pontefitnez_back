@@ -1,6 +1,7 @@
 package com.example.pontefitnez.controller;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -77,13 +78,13 @@ public class VentaController {
         articulo.setStock(articulo.getStock() - venta.getCantidad());
         articuloService.updateArticulo(articulo);
         venta.setCosto(venta.getCosto() * venta.getCantidad());
-        venta.setFecha_hora(LocalDateTime.now());
+        venta.setFecha_hora(ZonedDateTime.now(ZoneId.of("America/Lima")).toLocalDateTime());
         return ventaService.createVenta(venta);
     }
 
     @PostMapping("/membresia")
     public Venta createMembresia(@RequestBody Venta venta) {
-        venta.setFecha_hora(LocalDateTime.now());
+        venta.setFecha_hora(ZonedDateTime.now(ZoneId.of("America/Lima")).toLocalDateTime());
         return ventaService.createVenta(venta);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.pontefitnez.controller;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,16 @@ public class ReposicionController {
     @GetMapping("/{id}")
     public Reposicion getReposicionById(@PathVariable Long id) {
         return reposicionService.getReposicionById(id);
+    }
+
+    @GetMapping("/manana")
+    public List<Reposicion> findByFechaManana() {
+        return reposicionService.findByFechaManana();
+    }
+
+    @GetMapping("/tarde")
+    public List<Reposicion> findByFechaTarde() {
+        return reposicionService.findByFechaTarde();
     }
 
     @GetMapping("/hoy")
@@ -68,7 +79,7 @@ public class ReposicionController {
         articulo.setStock(articulo.getStock() + reposicion.getCantidad());
         articuloService.updateArticulo(articulo);
         reposicion.setCosto(reposicion.getCosto() * reposicion.getCantidad());
-        reposicion.setFecha_hora(LocalDateTime.now());
+        reposicion.setFecha_hora(ZonedDateTime.now(ZoneId.of("America/Lima")).toLocalDateTime());
         return reposicionService.createReposicion(reposicion);
     }
 }

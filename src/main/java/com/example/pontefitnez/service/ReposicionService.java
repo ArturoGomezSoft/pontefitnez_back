@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,24 @@ public class ReposicionService {
         return reposicionRepository.findById(id).orElse(null);
     }
 
+    public List<Reposicion> findByFechaManana() {
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
+        LocalDateTime startOfDay = today.atTime(6, 0);
+        LocalDateTime endOfDay = today.atTime(14, 0);
+
+        return reposicionRepository.findByFecha_horaBetween(startOfDay, endOfDay);
+    }
+
+    public List<Reposicion> findByFechaTarde() {
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
+        LocalDateTime startOfDay = today.atTime(14, 0);
+        LocalDateTime endOfDay = today.atTime(22, 0);
+
+        return reposicionRepository.findByFecha_horaBetween(startOfDay, endOfDay);
+    }
+
     public List<Reposicion> findByFechaHoy() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
 
@@ -35,7 +52,7 @@ public class ReposicionService {
     }
 
     public List<Reposicion> findBySemanaActual() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).atStartOfDay();
         LocalDateTime endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).atTime(LocalTime.MAX);
 
@@ -43,7 +60,7 @@ public class ReposicionService {
     }
 
     public List<Reposicion> findByMesActual() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfMonth = today.withDayOfMonth(1).atStartOfDay();
         LocalDateTime endOfMonth = today.withDayOfMonth(YearMonth.from(today).lengthOfMonth()).atTime(LocalTime.MAX);
 

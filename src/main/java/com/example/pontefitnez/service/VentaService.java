@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class VentaService {
     }
 
     public List<Venta> findByFechaManana() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfDay = today.atTime(6, 0);
         LocalDateTime endOfDay = today.atTime(14, 0);
 
@@ -35,7 +36,7 @@ public class VentaService {
     }
 
     public List<Venta> findByFechaTarde() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfDay = today.atTime(14, 0);
         LocalDateTime endOfDay = today.atTime(22, 0);
 
@@ -43,7 +44,7 @@ public class VentaService {
     }
 
     public List<Venta> findByFechaHoy() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfDay = today.atStartOfDay();
         LocalDateTime endOfDay = today.atTime(LocalTime.MAX);
 
@@ -51,7 +52,7 @@ public class VentaService {
     }
 
     public List<Venta> findBySemanaActual() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).atStartOfDay();
         LocalDateTime endOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).atTime(LocalTime.MAX);
 
@@ -59,7 +60,7 @@ public class VentaService {
     }
 
     public List<Venta> findByMesActual() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("America/Lima"));
         LocalDateTime startOfMonth = today.withDayOfMonth(1).atStartOfDay();
         LocalDateTime endOfMonth = today.withDayOfMonth(YearMonth.from(today).lengthOfMonth()).atTime(LocalTime.MAX);
 
