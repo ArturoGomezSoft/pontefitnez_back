@@ -26,6 +26,22 @@ public class VentaService {
         return ventaRepository.findById(id).orElse(null);
     }
 
+    public List<Venta> findByFechaManana() {
+        LocalDate today = LocalDate.now();
+        LocalDateTime startOfDay = today.atTime(6, 0);
+        LocalDateTime endOfDay = today.atTime(14, 0);
+
+        return ventaRepository.findByFecha_horaBetween(startOfDay, endOfDay);
+    }
+
+    public List<Venta> findByFechaTarde() {
+        LocalDate today = LocalDate.now();
+        LocalDateTime startOfDay = today.atTime(14, 0);
+        LocalDateTime endOfDay = today.atTime(22, 0);
+
+        return ventaRepository.findByFecha_horaBetween(startOfDay, endOfDay);
+    }
+
     public List<Venta> findByFechaHoy() {
         LocalDate today = LocalDate.now();
         LocalDateTime startOfDay = today.atStartOfDay();

@@ -29,6 +29,6 @@ public class ClienteService {
     }
 
     public List <Cliente> findByDniContaining(String dni) {
-            return clienteRepository.findByDniContaining(dni);
+        return clienteRepository.findByDniContaining(dni);
     }
 }

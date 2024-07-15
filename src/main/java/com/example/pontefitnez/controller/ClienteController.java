@@ -42,6 +42,6 @@ public class ClienteController {
 
     @GetMapping("/DniContaining/{dni}")
     public List <Cliente> findByDniContaining(@PathVariable String dni) {
-            return clienteService.findByDniContaining(dni);
+        return clienteService.findByDniContaining(dni);
     }
 }

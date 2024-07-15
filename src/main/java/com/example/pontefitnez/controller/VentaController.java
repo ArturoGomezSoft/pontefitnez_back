@@ -31,6 +31,16 @@ public class VentaController {
         return ventaService.getVentaById(id);
     }
 
+    @GetMapping("/manana")
+    public List<Venta> findByFechaManana() {
+        return ventaService.findByFechaManana();
+    }
+
+    @GetMapping("/tarde")
+    public List<Venta> findByFechaTarde() {
+        return ventaService.findByFechaTarde();
+    }
+
     @GetMapping("/hoy")
     public List<Venta> findByFechaHoy() {
         return ventaService.findByFechaHoy();
