@@ -14,6 +14,7 @@ public class Membresia {
     private String nombre;
     private Double precio;
     private Integer duracion;
+    private String tipo;
 //BckCamps
     
 	public Long getId() {
@@ -39,6 +40,12 @@ public class Membresia {
 	}
 	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 //BckGetSet
 }
